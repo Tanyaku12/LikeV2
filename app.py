@@ -74,6 +74,8 @@ def load_tokens(server_name, for_visit=False):
             path = "token_ind_visit.json"
         elif server_name in {"BR", "US", "SAC", "NA"}:
             path = "token_br_visit.json"
+        elif server_name in {"ID", "VN", "SG", "PK", "RU", "TH"}:
+            path = "token_id_visit.json"
         else:
             path = "token_bd_visit.json"
     else:
@@ -81,6 +83,8 @@ def load_tokens(server_name, for_visit=False):
             path = "token_ind.json"
         elif server_name in {"BR", "US", "SAC", "NA"}:
             path = "token_br.json"
+        elif server_name in {"ID", "VN", "SG", "PK", "RU", "TH"}:
+            path = "token_id.json"
         else:
             path = "token_bd.json"
 
@@ -185,8 +189,10 @@ def make_profile_check_request(encrypted_profile_payload, server_name, token_dic
         url = "https://client.ind.freefiremobile.com/GetPlayerPersonalShow"
     elif server_name in {"BR", "US", "SAC", "NA"}:
         url = "https://client.us.freefiremobile.com/GetPlayerPersonalShow"
-    else:
+    elif server_name in {"ID", "VN", "SG", "PK", "RU", "TH"}:
         url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
+    else:
+        url = "https://clientbp.ggblueshark.com/GetPlayerPersonalShow"
 
     edata = bytes.fromhex(encrypted_profile_payload)
     headers = {
@@ -275,8 +281,10 @@ def handle_requests():
         like_api_url = "https://client.ind.freefiremobile.com/LikeProfile"
     elif server_name_param in {"BR", "US", "SAC", "NA"}:
         like_api_url = "https://client.us.freefiremobile.com/LikeProfile"
-    else:
+    elif server_name in {"ID", "VN", "SG", "PK", "RU", "TH"}:
         like_api_url = "https://clientbp.ggpolarbear.com/LikeProfile"
+    else:
+        like_api_url = "https://clientbp.ggblueshark.com/LikeProfile"
 
     if tokens_for_like_sending:
         print(f"Using token batch for {server_name_param} (size {len(tokens_for_like_sending)}) to send likes.")
@@ -324,7 +332,7 @@ def handle_requests():
 @app.route('/token_info', methods=['GET'])
 def token_info():
     """Endpoint to check token counts for each server"""
-    servers = ["IND", "BD", "BR", "US", "SAC", "NA", "ID"]
+    servers = ["IND", "BD", "BR", "US", "SAC", "NA", "ID", "VN", "SG", "RU", "TH"]
     info = {}
     
     for server in servers:
