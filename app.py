@@ -72,6 +72,8 @@ def load_tokens(server_name, for_visit=False):
     if for_visit:
         if server_name == "IND":
             path = "token_ind_visit.json"
+        elif server_name == "ID":
+            path = "token_id_visit.json"
         elif server_name in {"BR", "US", "SAC", "NA"}:
             path = "token_br_visit.json"
         else:
@@ -79,6 +81,8 @@ def load_tokens(server_name, for_visit=False):
     else:
         if server_name == "IND":
             path = "token_ind.json"
+        elif server_name == "ID":
+            path = "token_id.json":
         elif server_name in {"BR", "US", "SAC", "NA"}:
             path = "token_br.json"
         else:
@@ -183,6 +187,8 @@ def make_profile_check_request(encrypted_profile_payload, server_name, token_dic
 
     if server_name == "IND":
         url = "https://client.ind.freefiremobile.com/GetPlayerPersonalShow"
+    elif server_name == "ID":
+        url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
     elif server_name in {"BR", "US", "SAC", "NA"}:
         url = "https://client.us.freefiremobile.com/GetPlayerPersonalShow"
     else:
@@ -273,6 +279,8 @@ def handle_requests():
     # Determine the URL for sending likes
     if server_name_param == "IND":
         like_api_url = "https://client.ind.freefiremobile.com/LikeProfile"
+    elif server_name_param == "ID":
+        like_api_url = "https://clientbp.ggpolarbear.com/LikeProfile"
     elif server_name_param in {"BR", "US", "SAC", "NA"}:
         like_api_url = "https://client.us.freefiremobile.com/LikeProfile"
     else:
