@@ -74,7 +74,7 @@ def load_tokens(server_name, for_visit=False):
             path = "token_ind_visit.json"
         elif server_name in {"BR", "US", "SAC", "NA"}:
             path = "token_br_visit.json"
-        elif server_name in {"ID", "VN", "SG", "PK", "RU", "TH"}:
+        elif server_name == "ID":
             path = "token_id_visit.json"
         else:
             path = "token_bd_visit.json"
@@ -83,7 +83,7 @@ def load_tokens(server_name, for_visit=False):
             path = "token_ind.json"
         elif server_name in {"BR", "US", "SAC", "NA"}:
             path = "token_br.json"
-        elif server_name in {"ID", "VN", "SG", "PK", "RU", "TH"}:
+        elif server_name == "ID":
             path = "token_id.json"
         else:
             path = "token_bd.json"
@@ -189,7 +189,7 @@ def make_profile_check_request(encrypted_profile_payload, server_name, token_dic
         url = "https://client.ind.freefiremobile.com/GetPlayerPersonalShow"
     elif server_name in {"BR", "US", "SAC", "NA"}:
         url = "https://client.us.freefiremobile.com/GetPlayerPersonalShow"
-    elif server_name in {"ID", "VN", "SG", "PK", "RU", "TH"}:
+    elif server_name == "ID":
         url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
     else:
         url = "https://clientbp.ggblueshark.com/GetPlayerPersonalShow"
@@ -281,7 +281,7 @@ def handle_requests():
         like_api_url = "https://client.ind.freefiremobile.com/LikeProfile"
     elif server_name_param in {"BR", "US", "SAC", "NA"}:
         like_api_url = "https://client.us.freefiremobile.com/LikeProfile"
-    elif server_name in {"ID", "VN", "SG", "PK", "RU", "TH"}:
+    elif server_name_param == "ID":
         like_api_url = "https://clientbp.ggpolarbear.com/LikeProfile"
     else:
         like_api_url = "https://clientbp.ggblueshark.com/LikeProfile"
@@ -332,8 +332,7 @@ def handle_requests():
 @app.route('/token_info', methods=['GET'])
 def token_info():
     """Endpoint to check token counts for each server"""
-    servers = ["IND", "BD", "BR", "US", "SAC", "NA", "ID", "VN", "SG", "RU", "TH"]
-    info = {}
+    servers = ["IND", "BD", "BR", "US", "SAC", "NA", "ID"]
     
     for server in servers:
         regular_tokens = load_tokens(server, for_visit=False)
