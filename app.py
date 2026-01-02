@@ -72,8 +72,6 @@ def load_tokens(server_name, for_visit=False):
     if for_visit:
         if server_name == "IND":
             path = "token_ind_visit.json"
-        elif server_name == "ID":
-            path = "token_id_visit.json"
         elif server_name in {"BR", "US", "SAC", "NA"}:
             path = "token_br_visit.json"
         else:
@@ -81,8 +79,6 @@ def load_tokens(server_name, for_visit=False):
     else:
         if server_name == "IND":
             path = "token_ind.json"
-        elif server_name == "ID":
-            path = "token_id.json":
         elif server_name in {"BR", "US", "SAC", "NA"}:
             path = "token_br.json"
         else:
@@ -187,12 +183,10 @@ def make_profile_check_request(encrypted_profile_payload, server_name, token_dic
 
     if server_name == "IND":
         url = "https://client.ind.freefiremobile.com/GetPlayerPersonalShow"
-    elif server_name == "ID":
-        url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
     elif server_name in {"BR", "US", "SAC", "NA"}:
         url = "https://client.us.freefiremobile.com/GetPlayerPersonalShow"
     else:
-        url = "https://clientbp.ggblueshark.com/GetPlayerPersonalShow"
+        url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
 
     edata = bytes.fromhex(encrypted_profile_payload)
     headers = {
@@ -279,12 +273,10 @@ def handle_requests():
     # Determine the URL for sending likes
     if server_name_param == "IND":
         like_api_url = "https://client.ind.freefiremobile.com/LikeProfile"
-    elif server_name_param == "ID":
-        like_api_url = "https://clientbp.ggpolarbear.com/LikeProfile"
     elif server_name_param in {"BR", "US", "SAC", "NA"}:
         like_api_url = "https://client.us.freefiremobile.com/LikeProfile"
     else:
-        like_api_url = "https://clientbp.ggblueshark.com/LikeProfile"
+        like_api_url = "https://clientbp.ggpolarbear.com/LikeProfile"
 
     if tokens_for_like_sending:
         print(f"Using token batch for {server_name_param} (size {len(tokens_for_like_sending)}) to send likes.")
@@ -332,7 +324,7 @@ def handle_requests():
 @app.route('/token_info', methods=['GET'])
 def token_info():
     """Endpoint to check token counts for each server"""
-    servers = ["IND", "BD", "BR", "US", "SAC", "NA"]
+    servers = ["IND", "BD", "BR", "US", "SAC", "NA", "ID"]
     info = {}
     
     for server in servers:
